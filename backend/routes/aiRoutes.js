@@ -1,9 +1,9 @@
 import express from "express";
-import { analyzeCv,showAllFeautures } from "../controllers/aiController.js";
+import { analyzeCV,showAllFeautures } from "../controllers/aiController.js";
 
 const router = express.Router();
 
 router.get("/",showAllFeautures);
-router.get('/analyze',analyzeCv);
+router.post('/analyze',analyzeCV);
 
 export default router;

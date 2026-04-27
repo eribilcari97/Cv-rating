@@ -8,12 +8,12 @@ function App() {
 
 
  const analyzeCV = async (cvText) => {
-    const res = await fetch("http://localhost:5000/api/analyze",{
+    const res = await fetch("http://localhost:5000/api/ai/analyze",{
       method:"POST",
       headers:{
           "Content-Type": "application/json"
       },
-      body: JSON.Stringify({cvText})
+      body: JSON.stringify({cvText})
     });
 
     const data = await res.json();
