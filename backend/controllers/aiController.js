@@ -9,17 +9,29 @@ export const showAllFeautures= async (req,res)=>{
 }
 
 
+
 export const analyzeCV = async (req, res) => {
   try {
     const { cvText } = req.body;
 
     const aiResponse = await analyzeWithAI(cvText);
 
-    const parsed = JSON.parse(aiResponse);
+  
+    let text = aiResponse;
+
+    // extraxting only Json
+    text = text.replace(/```json/g, "").replace(/```/g, "").trim();
+    const match = text.match(/\{[\s\S]*\}/);
+
+    if (!match) {
+      throw new Error("No valid JSON found in AI response");
+    }
+
+    const parsed = JSON.parse(match[0]);
 
     res.json(parsed);
   } catch (err) {
-    console.error(err);
+    console.error("AI ERROR:", err);
     res.status(500).json({ error: "AI failed" });
   }
 };
