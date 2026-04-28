@@ -38,6 +38,14 @@ ${cvText}
 
   console.log("GEMINI RESPONSE:", data);
 
+if (data.error) {
+  console.log("Gemini error:", data.error.message);
+  return null;
+}
+
+if (!data.candidates || !data.candidates[0]) {
+  return null;
+}
   const text =
     data.candidates?.[0]?.content?.parts?.[0]?.text;
 

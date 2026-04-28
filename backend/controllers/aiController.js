@@ -1,14 +1,8 @@
-
-
 import { analyzeWithAI } from "../services/aiServices.js";
-
-
 
 export const showAllFeautures= async (req,res)=>{
     res.status(201).json({message:"Welcome to Cv-rating"});
 }
-
-
 
 export const analyzeCV = async (req, res) => {
   try {
@@ -16,11 +10,16 @@ export const analyzeCV = async (req, res) => {
 
     const aiResponse = await analyzeWithAI(cvText);
 
-  
+  if (!aiResponse) {
+  return res.status(500).json({
+    error: "AI unavailable. Please try again later."
+  });
+}
     let text = aiResponse;
 
     // extraxting only Json
     text = text.replace(/```json/g, "").replace(/```/g, "").trim();
+   
     const match = text.match(/\{[\s\S]*\}/);
 
     if (!match) {

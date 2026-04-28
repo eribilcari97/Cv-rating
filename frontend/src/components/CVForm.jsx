@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Button, HStack } from "@chakra-ui/react"
 
 export default function CVForm({ onAnalyze }) {
   const [cvText, setCvText] = useState("");
@@ -15,7 +16,8 @@ export default function CVForm({ onAnalyze }) {
         onChange={(e) => setCvText(e.target.value)}
         placeholder="Paste your CV..."
       />
-      <button type="submit">Analyze</button>
+      <HStack>   <button type="submit">Analyze</button></HStack>
+   
     </form>
   );
 }

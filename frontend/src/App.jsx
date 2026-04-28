@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import CVForm from "./components/CVForm";
-import Result from "./components/Result";
+import InputPage from './pages/Inputpage';
+import ResultPage from './pages/Resultpage';
 import './App.css'
 
 function App() {
-  const [result, setRezult] = useState("");
+  const [result, setResult] = useState("");
 
 
  const analyzeCV = async (cvText) => {
@@ -17,16 +17,18 @@ function App() {
     });
 
     const data = await res.json();
-    setRezult(data);
+    setResult(data);
   };
 
 
   return (
-    
-     <div>
-      <CVForm onAnalyze={analyzeCV} />
-      {result && <Result result={result} />}
-    </div>
+  <>
+      {!result ? (
+        <InputPage setResult={setResult} />
+      ) : (
+        <ResultPage result={result} />
+      )}
+    </>
     
   )
 }
